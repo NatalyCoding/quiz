@@ -5,11 +5,11 @@ const option1 = document.querySelector('.option1'),
     option4 = document.querySelector('.option4');
 
 /* All our options */
-const optionElements = document.querySelectorAll('/option');
+const optionElements = document.querySelectorAll('.option');
 
 const question = document.getElementById('question'),
     numberOfQuestion = document.getElementById('number-of-question'),
-    numberOfAllQuestions = document.getElementById('number-of-all-question');
+    numberOfAllQuestions = document.getElementById('number-of-all-questions');
 
 let indexOfQuestion,
     indexOfPage = 0;
@@ -35,7 +35,7 @@ const questions = [{
         rightAnswer: 1
     },
     {
-        question: 'JavaScript written under which of the following tag',
+        question: 'JavaScript written under which of the following tag?',
         options: [
             '<JavaScript></JavaScript>',
             '<code></code>',
@@ -54,4 +54,62 @@ const questions = [{
         ],
         rightAnswer: 3
     },
+    {
+        question: 'Which of the followings are primitive data types in JavaScript?',
+        options: [
+            'String',
+            'Number',
+            'Boolean',
+            'All of the above',
+        ],
+        rightAnswer: 3
+    },
 ];
+
+numberOfAllQuestions.innerHTML = questions.length;
+
+const load = () => {
+    question.innerHTML = questions[indexOfQuestion].question;
+
+    option1.innerHTML = questions[indexOfQuestion].options[0];
+    option2.innerHTML = questions[indexOfQuestion].options[1];
+    option3.innerHTML = questions[indexOfQuestion].options[2];
+    option4.innerHTML = questions[indexOfQuestion].options[3];
+
+    numberOfQuestion.innerHTML = indexOfPage + 1;
+    indexOfPage++;
+};
+
+let completedAnswers = [];
+
+const randomQuestion = () => {
+    let randomNumber = Math.floor(Math.random() * questions.length);
+    let hitDuplicate = false;
+
+    if (indexOfPage == questions.length) {
+        quizOver();
+    } else {
+        if (completedAnswers.length > 0) {
+            completedAnswers.forEach(item => {
+                if (item == randomNumber) {
+                    hitDuplicate = true;
+                }
+            });
+            if (hitDuplicate) {
+                randomQuestion();
+            } else {
+                indexOfQuestion = randomNumber;
+                load();
+            }
+        };
+        if (completedAnswers == 0) {
+            indexOfQuestion = randomNumber;
+            load();
+        }
+    };
+    completedAnswers.push(indexOfQuestion);
+}
+
+window.addEventListener('load', () => {
+    randomQuestion();
+})
