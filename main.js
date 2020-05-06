@@ -113,9 +113,11 @@ const randomQuestion = () => {
 const checkAnswer = el => {
     if (el.target.dataset.id == questions[indexOfQuestion].rightAnswer) {
         el.target.classList.add('correct');
+        updateAnswerTracker('correct');
         score++;
     } else {
         el.target.classList.add('wrong');
+        updateAnswerTracker('wrong');
     }
     disabledOptions();
 }
@@ -135,10 +137,22 @@ const enableOptions = () => {
     })
 };
 
+const answerTracker = () => {
+    questions.forEach(() => {
+        const div = document.createElement('div');
+        answersTracker.appendChild(div);
+    })
+};
+
+const updateAnswerTracker = status => {
+    answersTracker.children[indexOfPage - 1].classList.add(`${status}`);
+}
+
 for (option of optionElements) {
     option.addEventListener('click', e => checkAnswer(e));
 }
 
 window.addEventListener('load', () => {
     randomQuestion();
+    answerTracker();
 })
