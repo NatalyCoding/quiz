@@ -148,9 +148,32 @@ const updateAnswerTracker = status => {
     answersTracker.children[indexOfPage - 1].classList.add(`${status}`);
 }
 
+const validate = () => {
+    if (!optionElements[0].classList.contains('disabled')) {
+        alert('Please choose your answer');
+    } else {
+        randomQuestion();
+        enableOptions();
+    }
+};
+
+btnNext.addEventListener('click', validate);
+
 for (option of optionElements) {
     option.addEventListener('click', e => checkAnswer(e));
 }
+
+const quizOver = () => {
+    document.querySelector('.quiz-over-modal').classList.add('active');
+    correctAnswer.innerHTML = score;
+    numberOfAllQuestion2.innerHTML = questions.length;
+};
+
+const tryAgain = () => {
+    window.location.reload();
+}
+
+btnTryAgain.addEventListener('click', tryAgain);
 
 window.addEventListener('load', () => {
     randomQuestion();
