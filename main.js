@@ -110,6 +110,35 @@ const randomQuestion = () => {
     completedAnswers.push(indexOfQuestion);
 }
 
+const checkAnswer = el => {
+    if (el.target.dataset.id == questions[indexOfQuestion].rightAnswer) {
+        el.target.classList.add('correct');
+        score++;
+    } else {
+        el.target.classList.add('wrong');
+    }
+    disabledOptions();
+}
+
+const disabledOptions = () => {
+    optionElements.forEach(item => {
+        item.classList.add('disabled');
+        if (item.dataset.id == questions[indexOfQuestion].rightAnswer) {
+            item.classList.add('correct');
+        }
+    })
+}
+
+const enableOptions = () => {
+    optionElements.forEach(item => {
+        item.classList.remove('disabled', 'correct', 'wrong');
+    })
+};
+
+for (option of optionElements) {
+    option.addEventListener('click', e => checkAnswer(e));
+}
+
 window.addEventListener('load', () => {
     randomQuestion();
 })
