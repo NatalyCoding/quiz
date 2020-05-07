@@ -37,10 +37,10 @@ const questions = [{
     {
         question: 'JavaScript written under which of the following tag?',
         options: [
-            '<JavaScript></JavaScript>',
-            '<code></code>',
-            '<script></script>',
-            '<head></head>',
+            `&lt;JavaScript&gt;&lt;/JavaScript&gt;`,
+            '&lt;code&gt;&lt;/code&gt;',
+            '&lt;script&gt;&lt;/script&gt;',
+            '&lt;head&gt;&lt;/head&gt;',
         ],
         rightAnswer: 2
     },
